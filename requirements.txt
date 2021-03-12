@@ -1,0 +1,7 @@
+python=3.6
+pytorch=1.8.0
+torchvision=0.3.0
+open3d=0.8
+tqdm
+tensorflow
+tensorboardX=2.1
