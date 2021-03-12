@@ -6,6 +6,11 @@ __pycache__/
 # C extensions
 *.so
 
+.vscode
+assets
+eval_score
+pn2_utils
+
 # Distribution / packaging
 .Python
 build/
