@@ -8,8 +8,6 @@ __pycache__/
 
 .vscode
 assets
-eval_score
-pn2_utils
 
 # Distribution / packaging
 .Python
