@@ -388,15 +388,8 @@ def add_eval_log_epoch(logger, data, batch_nums, epoch, mode, stages):
         logger.add_scalar('epoch_'+mode+'_'+stage_i+'_score', total_score, epoch) 
 
 ####___________________________test function_____________________________
-def eval_notruth(data, grasp_stage2, grasp_stage3, grasp_stage3_score, grasp_stage3_stage2, output_score, params, grasp_save_path=None):
+def eval_notruth(pc, color, grasp_stage2, grasp_stage3, grasp_stage3_score, grasp_stage3_stage2, output_score, params, grasp_save_path=None):
     depths, width, table_height, gpu, _ = params
-    pc = data['view_cloud'].astype(np.float32)
-    # pc = np.array(data.points)
-    # pc = pc[pc[:,0] < 0.23]
-    # pc = pc[pc[:,0] > -0.5]
-    # pc = pc[pc[:,2] < 1]
-    # pc = pc[pc[:,1] < 0.7]
-    # pc = pc[pc[:,1] > 0.2]
     view_num = None
     if len(grasp_stage2) >= 1:
         grasp_stage2 = eval_test(pc, grasp_stage2[:,:8], view_num, table_height, depths, width, gpu)
@@ -418,6 +411,7 @@ def eval_notruth(data, grasp_stage2, grasp_stage3, grasp_stage3_score, grasp_sta
     print("stage3 grasp num (with scorethre):", len(grasp_stage3_score))
     output_dict = {
         'points'             : pc,
+        'colors'             : color,
         'scores'             : output_score.numpy(),
         'grasp_stage2'       : grasp_stage2.numpy(),
         'grasp_stage3_stage2': grasp_stage3_stage2.numpy(),

@@ -1,6 +1,6 @@
 import argparse
 import os
-import pickle
+import pickle, copy
 
 import torch
 import torch.utils.data
@@ -98,14 +98,15 @@ class RefineModule():
 
         if real_data:
             data = open3d.io.read_point_cloud(pc_path)
+            data.transform(utils.local_to_global_transformation_quat(center_camera))
             pc = np.array(data.points)
             pc_color = np.array(data.colors)
             center_camera = np.array([0, 0, 1.658])
-            data.transform(utils.local_to_global_transformation_quat(center_camera))
         else:
             data = np.load(pc_path, allow_pickle=True)
             pc = data['view_cloud'].astype(np.float32)
             pc_color = data['view_cloud_color'].astype(np.float32)
+        pc_back, color_back = copy.deepcopy(pc), copy.deepcopy(pc_color)
         # if real_data:
         #     center_camera = np.array([0, 0, 1.658])
         #     pc = np.matmul(utils.local_to_global_transformation_quat(center_camera), np.c_[pc, np.ones([len(pc), 1])].T).T[:,:3]
@@ -143,7 +144,7 @@ class RefineModule():
         if real_data:
             grasp_save_path = grasp_save_path.replace('.pcd', '.p')
         
-        record_stage2 = utils.eval_notruth(data, grasp_stage2, select_grasp_class, select_grasp_score, \
+        record_stage2 = utils.eval_notruth(pc_back, color_back, grasp_stage2, select_grasp_class, select_grasp_score, \
                                         select_grasp_class_stage2, output_score, self.eval_params, grasp_save_path)
 
 def main():
