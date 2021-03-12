@@ -42,21 +42,18 @@ The architecture of REGNet is shown in follows.
 <img src=markdown/4_2.png width=800>
 </div>
  
-1. Train
-
-Recommand train the three stages based on the pretrained models.
+1. Train (Recommand train the three stages based on the pretrained models.
+If using the pretrained models, please modify the path of models and datasets in ```train.py```.)
 ```
 cd REGNet_for_3D_Grasping/
 python train.py --gpu 0 --gpu-num 3 --gpus 0,1,2 --batch-size 15 --mode train --tag regnet
 ```
 
-2. Pretrain
-
-You can train the SN and GRN separately or at the same time.
+2. Pretrain (You can train the SN and GRN separately or at the same time.)
 ```
 cd REGNet_for_3D_Grasping/
-python train.py --gpu 0 --gpu-num 3 --gpus 0,1,2 --batch-size 15 --mode pretrain_score --tag regnet
-python train.py --gpu 0 --gpu-num 3 --gpus 0,1,2 --batch-size 15 --mode pretrain_region --tag regnet
+python train.py --gpu 0 --gpu-num 3 --gpus 0,1,2 --batch-size 15 --mode pretrain_score --tag regnet_score
+python train.py --gpu 0 --gpu-num 3 --gpus 0,1,2 --batch-size 15 --mode pretrain_region --tag regnet_region
 ```
 
 3. Launch tensorboard for monitoring
@@ -78,5 +75,5 @@ python test.py --gpu 7 --gpu-num 1
 cd REGNet_for_3D_Grasping/vis
 python vis_grasp.py 
 ```
-
+---
 ## Results
