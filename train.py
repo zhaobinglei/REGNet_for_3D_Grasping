@@ -321,8 +321,6 @@ class RefineModule():
         if mode == 'train':
             score_model.train()
             region_model.train()
-            # scheduler_score.step()
-            # scheduler_region.step()
             torch.set_grad_enabled(True)
             dataloader = self.train_data_loader
             batch_size = args.batch_size
@@ -363,25 +361,26 @@ class RefineModule():
             
             try:
                 grasp_stage2, keep_grasp_num_stage2, stage2_mask, loss_tuple, correct_tuple, next_gt, select_grasp_class, select_grasp_score, \
-                    select_grasp_class_stage2, keep_grasp_num_stage3, keep_grasp_num_stage3_score, stage3_mask, stage3_score_mask, loss_refine_tuple, correct_refine_tuple, gt = \
-                                region_model(pc_group, pc_group_more, pc_group_index, pc_group_more_index, center_pc, \
-                                center_pc_index, pc, all_feature, self.gripper_params, grasp_labels, data_path)
+                    select_grasp_class_stage2, keep_grasp_num_stage3, keep_grasp_num_stage3_score, stage3_mask, stage3_score_mask, \
+                    loss_refine_tuple, correct_refine_tuple, gt = region_model(pc_group, pc_group_more, pc_group_index, \
+                    pc_group_more_index, center_pc, center_pc_index, pc, all_feature, self.gripper_params, grasp_labels, data_path)
 
                 loss_total = loss.sum() + loss_tuple[0].sum()
                 if len(loss_refine_tuple) > 2:
                     loss_total += loss_refine_tuple[0].sum()
                 t2 = time.time()  
                 print("forward time:", t2-t1) 
-
                 if mode == 'train':
                     t1 = time.time()
                     loss_total.backward()
+                    # if len(loss_refine_tuple) > 2:
+                    #     loss_total = loss_refine_tuple[0].sum()
+                    #     loss_total.backward()
+
                     t2 = time.time()
                     print("backward time:", t2-t1)
                     optimizer_score.step()
                     optimizer_region.step()
-                    scheduler_score.step()
-                    scheduler_region.step()
 
                 pre_loss1_stage2 += loss_tuple[6].mean().data
                 pre_loss2_stage2 += loss_tuple[7].mean().data 
@@ -433,8 +432,6 @@ class RefineModule():
                     loss_total.backward()
                     optimizer_score.step()
                     optimizer_region.step()
-                    # scheduler_score.step()
-                    # scheduler_region.step()
 
         data = (pre_loss1_stage2/batch_idx, pre_loss2_stage2/batch_idx, pre_loss3_stage2/batch_idx, pre_loss4_stage2/batch_idx, \
                 pre_loss1_stage3_class_satge2/batch_idx, pre_loss2_stage3_class_satge2/batch_idx, pre_loss3_stage3_class_satge2/batch_idx, pre_loss4_stage3_class_satge2/batch_idx, \

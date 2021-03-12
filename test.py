@@ -42,7 +42,7 @@ parser.add_argument('--data-path', type=str, default='/data1/cxg6/eval_data', he
 parser.add_argument('--model-path', type=str, default='/data1/cxg6/REGNet_for_3D_Grasping/assets/models/', help='to saved model path')
 parser.add_argument('--log-path', type=str, default='/data1/cxg6/REGNet_for_3D_Grasping/assets/log/', help='to saved log path')
 parser.add_argument('--folder-name', type=str, default='/data1/cxg6/REGNet_for_3D_Grasping/test_file/virtual_data')
-parser.add_argument('--file-name', type=str, default='00001_view_1.p')
+parser.add_argument('--file-name', type=str, default='')
 parser.add_argument('--log-interval', type=int, default=1)
 parser.add_argument('--save-interval', type=int, default=1)
 
@@ -63,7 +63,7 @@ obj_class_num = 43
 width, height, depth = 0.060, 0.010, 0.065
 table_height = 0.5
 grasp_score_threshold = 0.5 # 0.3
-center_num = 1024#64#128
+center_num = 512#64#128
 score_thre = 0.5
 group_num=256
 group_num_more=1024
@@ -98,27 +98,25 @@ class RefineModule():
 
         if real_data:
             data = open3d.io.read_point_cloud(pc_path)
+            center_camera = np.array([0, 0, 1.658])
             data.transform(utils.local_to_global_transformation_quat(center_camera))
             pc = np.array(data.points)
             pc_color = np.array(data.colors)
-            center_camera = np.array([0, 0, 1.658])
         else:
             data = np.load(pc_path, allow_pickle=True)
             pc = data['view_cloud'].astype(np.float32)
             pc_color = data['view_cloud_color'].astype(np.float32)
-        pc_back, color_back = copy.deepcopy(pc), copy.deepcopy(pc_color)
-        # if real_data:
-        #     center_camera = np.array([0, 0, 1.658])
-        #     pc = np.matmul(utils.local_to_global_transformation_quat(center_camera), np.c_[pc, np.ones([len(pc), 1])].T).T[:,:3]
             
-        pc_color = utils.noise_color(pc_color)
         pc = np.c_[pc, pc_color]
         if real_data:        
-            pc = pc[pc[:,0] < 0.23]
-            pc = pc[pc[:,0] > -0.5]
+            pc = pc[pc[:,0] < 0.4]
+            pc = pc[pc[:,0] > -0.47]
             pc = pc[pc[:,2] < 1]
             pc = pc[pc[:,1] < 0.7]
             pc = pc[pc[:,1] > 0.2]
+        pc_back, color_back = copy.deepcopy(pc[:,:3]), copy.deepcopy(pc[:,3:6])
+        pc = utils.noise_color(pc)
+
         select_point_index = None
         if len(pc) >= all_points_num:
             select_point_index = np.random.choice(len(pc), all_points_num, replace=False)

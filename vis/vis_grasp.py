@@ -77,7 +77,14 @@ def inv_transform_grasp(grasp_trans):
 
     return matrix.numpy(), grasp_score_ori.numpy()
 
-def show_grasp(path, stage: str):
+def draw_one_grasp(grasp, color_list=[0, 0.5, 0]):
+    grasp = np.r_[grasp.reshape(3,4), np.array([[0,0,0,1]])]
+
+    global_to_local = np.linalg.inv(grasp)
+    hand = get_hand_geometry(global_to_local, color=color_list)
+    return hand
+
+def show_grasp(path, stage: str, score_thre: float):
     data = np.load(os.path.abspath(path), allow_pickle=True)
     view = data['points']
     color = data['colors']
@@ -90,19 +97,29 @@ def show_grasp(path, stage: str):
     print(grasp.shape)
     
     vis_list = [view_point_cloud]
+    score_max, score_max_idx = 0, 0
+    show_idxs = []
     for idx in range(len(grasp)):
-        if score[idx] < 0.5:
+        if score[idx] < 0.55:
             continue
-        i = grasp[idx]
-        i = np.r_[i.reshape(3,4), np.array([[0,0,0,1]])]
+        show_idxs.append(idx)
+        if score_max < score[idx]:
+            score_max = score[idx]
+            score_max_idx = idx
 
-        global_to_local = np.linalg.inv(i)
-        hand = get_hand_geometry(global_to_local, color=[0, 0.5, 0])
+    show_idxs.remove(score_max_idx)
+    for idx in show_idxs:
+        i = grasp[idx]
+        hand = draw_one_grasp(i)
         vis_list.extend(hand)
+    hand = draw_one_grasp(grasp[score_max_idx], color_list=[0.5, 0, 0])
+    vis_list.extend(hand)
+
     open3d.visualization.draw_geometries(vis_list)
 
 if __name__ == '__main__':
     path = "test_file/virtual_data_predict/00001_view_1.p"
     stage = 'grasp_stage2'
-    show_grasp(path)
+    score_thre = 0.5
+    show_grasp(path, stage, score_thre)
     

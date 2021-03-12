@@ -423,12 +423,12 @@ def eval_notruth(pc, color, grasp_stage2, grasp_stage3, grasp_stage3_score, gras
         with open(grasp_save_path, 'wb') as file:
             pickle.dump(output_dict, file)
 
-def noise_color(color):
+def noise_color(pc_color):
     obj_color_time = 1-np.random.rand(3) / 5
     print("noise color time", obj_color_time)
-    for i in range(3):
-        color[:,i] *= obj_color_time[i]
-    return color
+    for i in range(3,6):
+        pc_color[:,i] *= obj_color_time[i-3]
+    return pc_color
 
 def local_to_global_transformation_quat(point):
     T_local_to_global = np.eye(4)
