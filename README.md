@@ -22,7 +22,7 @@ python setup.py install
 ```
 4. Modify the path of models and datasets in ```train.py``` and ```test.py```
 ```
---load-score-path'  : The path of pretrained ScoreNet model 
+'--load-score-path'  : The path of pretrained ScoreNet model 
 '--load-region-path': The path of pretrained GraspRegionNet and RefineNet model 
 '--data-path'       : The dataset path
 '--model-path'      : to saved model path
