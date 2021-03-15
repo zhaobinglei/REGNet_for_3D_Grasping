@@ -226,10 +226,10 @@ class GripperRegionNetwork(nn.Module):
             
             center_dist = (next_grasp[:,:3] - next_gt[:,:3]) 
             center_dist_mask = (torch.sqrt(torch.mul(center_dist[:,0],center_dist[:,0])+torch.mul(center_dist[:,1],center_dist[:,1])\
-                                                +torch.mul(center_dist[:,2],center_dist[:,2])) < 0.025).view(-1) 
+                                                +torch.mul(center_dist[:,2],center_dist[:,2])) < 0.03).view(-1) 
                             
             r_sim = compute_cos_sim(next_grasp[:,3:6], next_gt[:,3:6]).view(-1)
-            r_sim_mask = (r_sim < 0.234).view(-1) # cos60 = 0.5 #0.234
+            r_sim_mask = (r_sim < 0.5).view(-1) # cos60 = 0.5 #0.234
             theta_sim = torch.abs(next_grasp[:,6] - next_gt[:,6]) 
             theta_sim_mask = (theta_sim < 1.047).view(-1) # 1.047 = 60/180*np.pi
 

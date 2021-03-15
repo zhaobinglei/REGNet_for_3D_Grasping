@@ -183,7 +183,7 @@ class EvalDataTest(PointCloud):
         frame = self.frame[frame_index, :, :]
         point = self.center[frame_index, :]
         
-        if point[2] + frame[2, 0] * self.depth < self.table_height - 0.005: # config.FINGER_LENGTH  self.depth 
+        if point[2] + frame[2, 0] * self.depth < self.table_height + 0.005: # config.FINGER_LENGTH  self.depth 
             return
 
         table_collision_bool = self._table_collision_check(point, frame)

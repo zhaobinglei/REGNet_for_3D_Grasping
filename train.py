@@ -30,8 +30,8 @@ parser.add_argument('--cuda', action='store_true')
 parser.add_argument('--gpu-num', type=int, default=2)
 parser.add_argument('--gpu', type=int, default=0)
 parser.add_argument('--gpus', type=str, default='0,2,3')
-parser.add_argument('--lr-score' , type=float, default=0.001)
-parser.add_argument('--lr-region', type=float, default=0.001)
+parser.add_argument('--lr-score' , type=float, default=0.0001) #0.001
+parser.add_argument('--lr-region', type=float, default=0.0001)
 
 parser.add_argument('--load-score-path', type=str, default='/data1/cxg6/REGNet_for_3D_Grasping/assets/models/pretrain_for_refine_regnet_bs15/score_17.model')
 parser.add_argument('--load-region-path', type=str, default='/data1/cxg6/REGNet_for_3D_Grasping/assets/models/pretrain_for_refine_regnet_bs15/region_17.model')

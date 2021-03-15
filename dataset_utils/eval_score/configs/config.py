@@ -8,7 +8,7 @@ TABLE_COLLISION_OFFSET = 0.005
 # Workspace should be (6,): low_x, high_x, low_y, high_y, low_z, high_z
 # WORKSPACE = [-0.40, 0.40, -0.35, 0.35, TABLE_HEIGHT - 0.001, TABLE_HEIGHT + 0.45]
 VOXEL_SIZE = 0.005
-NUM_POINTS_THRESHOLD = 8
+NUM_POINTS_THRESHOLD = 16#8
 RADIUS_THRESHOLD = 0.04
 
 
@@ -28,7 +28,7 @@ BACK_COLLISION_THRESHOLD = 0 * math.sqrt(
     SCENE_MULTIPLE)  # if more than this number of points exist behind the back of hand, grasp fail
 BACK_COLLISION_MARGIN = 0.0  # points that collide with back hand within this range will not be detected
 FINGER_COLLISION_THRESHOLD = 0
-CLOSE_REGION_MIN_POINTS = 10
+CLOSE_REGION_MIN_POINTS = 16
 for i in range(len(THETA_SEARCH)):
     THETA_SEARCH[i] /= 57.29578
 

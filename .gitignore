@@ -7,7 +7,9 @@ __pycache__/
 *.so
 
 .vscode
-assets
+log
+assets/models/*0*
+assets/models/*15*
 
 # Distribution / packaging
 .Python

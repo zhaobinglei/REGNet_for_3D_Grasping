@@ -42,7 +42,7 @@ The architecture of REGNet is shown in follows.
 <img src=markdown/4_2.png width=800>
 </div>
  
-1. Train (Recommand train the three stages based on the pretrained models.
+1. Train (Recommand training the three stages based on the pretrained models.
 If using the pretrained models, please modify the path of models and datasets in ```train.py```.)
 ```
 cd REGNet_for_3D_Grasping/
@@ -77,3 +77,19 @@ python vis_grasp.py
 ```
 ---
 ## Results
+There are some results predicted by REGNet.
+The first situation is in the validation dataset, which has the same distribution as the training dataset (table_height=0.75). Some objects do not have the corresponding grasps, since the gripper's width is smaller than the object's size. The red grasp has the highest predicted score. 
+<div align=center>
+<img src=markdown/2.png width=800>
+</div>
+The second situation is also generated in simulation enviroment. But it uses the objects' models that don't in the training dataset (table_height=0.5).
+<div align=center>
+<img src=markdown/1.png width=800>
+</div>
+The next two pictures are observed by Kinect in the real world (table_height=0.7). The objects also don't in the training dataset.
+<div align=center>
+<img src=markdown/3.png width=800>
+</div>
+<div align=center>
+<img src=markdown/4.png width=800>
+</div>

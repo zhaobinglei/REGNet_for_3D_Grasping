@@ -30,9 +30,11 @@ parser.add_argument('--gpus', type=str, default='0,2,3')
 parser.add_argument('--lr-score' , type=float, default=0.001)
 parser.add_argument('--lr-region', type=float, default=0.001)
 
-parser.add_argument('--load-score-path', type=str, default='/data1/cxg6/REGNet_for_3D_Grasping/assets/models/pretrain_for_refine_regnet_bs15/score_17.model')
-parser.add_argument('--load-region-path', type=str, default='/data1/cxg6/REGNet_for_3D_Grasping/assets/models/pretrain_for_refine_regnet_bs15/region_17.model')
-#parser.add_argument('--load-score-path', type=str, default='')
+parser.add_argument('--load-score-path', type=str, default='/data1/cxg6/REGNet_for_3D_Grasping/assets/models/final/score.model')
+parser.add_argument('--load-region-path', type=str, default='/data1/cxg6/REGNet_for_3D_Grasping/assets/models/final/region.model')
+# parser.add_argument('--load-score-path', type=str, default='/data1/cxg6/REGNet_for_3D_Grasping/assets/models/0.12/score_38.model')
+# parser.add_argument('--load-region-path', type=str, default='/data1/cxg6/REGNet_for_3D_Grasping/assets/models/0.12/region_38.model')
+# #parser.add_argument('--load-score-path', type=str, default='')
 # parser.add_argument('--load-region-path', type=str, default='')
 parser.add_argument('--load-score-flag', type=bool, default=True)
 parser.add_argument('--load-region-flag', type=bool, default=True)
@@ -42,7 +44,7 @@ parser.add_argument('--data-path', type=str, default='/data1/cxg6/eval_data', he
 parser.add_argument('--model-path', type=str, default='/data1/cxg6/REGNet_for_3D_Grasping/assets/models/', help='to saved model path')
 parser.add_argument('--log-path', type=str, default='/data1/cxg6/REGNet_for_3D_Grasping/assets/log/', help='to saved log path')
 parser.add_argument('--folder-name', type=str, default='/data1/cxg6/REGNet_for_3D_Grasping/test_file/virtual_data')
-parser.add_argument('--file-name', type=str, default='')
+parser.add_argument('--file-name', type=str, default='00001_view_1.p')
 parser.add_argument('--log-interval', type=int, default=1)
 parser.add_argument('--save-interval', type=int, default=1)
 
@@ -60,13 +62,13 @@ all_points_num = 25600
 obj_class_num = 43
 
 # width, height, depth = 0.060, 0.010, 0.060
-width, height, depth = 0.060, 0.010, 0.065
+width, height, depth = 0.060, 0.010, 0.06
 table_height = 0.5
 grasp_score_threshold = 0.5 # 0.3
-center_num = 512#64#128
+center_num = 4096#64#128
 score_thre = 0.5
 group_num=256
-group_num_more=1024
+group_num_more=2048
 r_time_group = 0.1
 r_time_group_more = 0.8
 gripper_num = 64
@@ -109,10 +111,10 @@ class RefineModule():
             
         pc = np.c_[pc, pc_color]
         if real_data:        
-            pc = pc[pc[:,0] < 0.4]
-            pc = pc[pc[:,0] > -0.47]
+            pc = pc[pc[:,0] < 0.26]
+            pc = pc[pc[:,0] > -0.4]
             pc = pc[pc[:,2] < 1]
-            pc = pc[pc[:,1] < 0.7]
+            pc = pc[pc[:,1] < 0.65]
             pc = pc[pc[:,1] > 0.2]
         pc_back, color_back = copy.deepcopy(pc[:,:3]), copy.deepcopy(pc[:,3:6])
         pc = utils.noise_color(pc)
@@ -156,10 +158,10 @@ def main():
             pc_paths = glob.glob(args.folder_name+"/*.p",recursive=True)
 
         for pc_path in pc_paths:
-            refineModule.test_one_file(resume_epoch, pc_path, real_data)
+            refineModule.test_one_file(resume_epoch-1, pc_path, real_data)
     else:
         pc_path = os.path.join(args.folder_name, args.file_name)
-        refineModule.test_one_file(resume_epoch, pc_path, real_data)
+        refineModule.test_one_file(resume_epoch-1, pc_path, real_data)
 
 if __name__ == "__main__":
     main()
