@@ -1,5 +1,5 @@
 #  REGNet_for_3D_Grasping
-RGENet is a REgion-based Grasp Network for End-to-end Grasp Detection in Point Clouds. It aims at generating the optimal grasp of novel objects from partial noisy observations.
+RGENet (ICRA 2021, [arXiv](https://arxiv.org/abs/2002.12647)) is a REgion-based Grasp Network for End-to-end Grasp Detection in Point Clouds. It aims at generating the optimal grasp of novel objects from partial noisy observations. 
 <div align=center>
 <img src=markdown/1_1.png width=600>
 </div>

@@ -30,8 +30,8 @@ parser.add_argument('--gpus', type=str, default='0,2,3')
 parser.add_argument('--lr-score' , type=float, default=0.001)
 parser.add_argument('--lr-region', type=float, default=0.001)
 
-parser.add_argument('--load-score-path', type=str, default='/data1/cxg6/REGNet_for_3D_Grasping/assets/models/final/score.model')
-parser.add_argument('--load-region-path', type=str, default='/data1/cxg6/REGNet_for_3D_Grasping/assets/models/final/region.model')
+parser.add_argument('--load-score-path', type=str, default='/data1/cxg6/REGNet_for_3D_Grasping/assets/models/final/score_20.model')
+parser.add_argument('--load-region-path', type=str, default='/data1/cxg6/REGNet_for_3D_Grasping/assets/models/final/region_20.model')
 # parser.add_argument('--load-score-path', type=str, default='/data1/cxg6/REGNet_for_3D_Grasping/assets/models/0.12/score_38.model')
 # parser.add_argument('--load-region-path', type=str, default='/data1/cxg6/REGNet_for_3D_Grasping/assets/models/0.12/region_38.model')
 # #parser.add_argument('--load-score-path', type=str, default='')
@@ -44,7 +44,7 @@ parser.add_argument('--data-path', type=str, default='/data1/cxg6/eval_data', he
 parser.add_argument('--model-path', type=str, default='/data1/cxg6/REGNet_for_3D_Grasping/assets/models/', help='to saved model path')
 parser.add_argument('--log-path', type=str, default='/data1/cxg6/REGNet_for_3D_Grasping/assets/log/', help='to saved log path')
 parser.add_argument('--folder-name', type=str, default='/data1/cxg6/REGNet_for_3D_Grasping/test_file/virtual_data')
-parser.add_argument('--file-name', type=str, default='00001_view_1.p')
+parser.add_argument('--file-name', type=str, default='')
 parser.add_argument('--log-interval', type=int, default=1)
 parser.add_argument('--save-interval', type=int, default=1)
 
@@ -62,10 +62,10 @@ all_points_num = 25600
 obj_class_num = 43
 
 # width, height, depth = 0.060, 0.010, 0.060
-width, height, depth = 0.060, 0.010, 0.06
-table_height = 0.5
+width, height, depth = 0.06, 0.010, 0.06
+table_height = 0.75
 grasp_score_threshold = 0.5 # 0.3
-center_num = 4096#64#128
+center_num = 4000#64#128
 score_thre = 0.5
 group_num=256
 group_num_more=2048
