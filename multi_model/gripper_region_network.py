@@ -5,7 +5,7 @@ import torch.nn as nn
 import math
 import torch.nn.functional as F
 #from multi_model.utils.pointnet_test import PointNetPartFeature
-from multi_model.utils.pointnet2 import PointNet2TwoStage, PointNet2Refine, PointNet2RefineNoRegion
+from multi_model.utils.pointnet2 import PointNet2TwoStage, PointNet2Refine
 
 class GripperRegionNetwork(nn.Module):
     def __init__(self, training, group_num, gripper_num, grasp_score_threshold, radius, reg_channel):
@@ -226,7 +226,7 @@ class GripperRegionNetwork(nn.Module):
             
             center_dist = (next_grasp[:,:3] - next_gt[:,:3]) 
             center_dist_mask = (torch.sqrt(torch.mul(center_dist[:,0],center_dist[:,0])+torch.mul(center_dist[:,1],center_dist[:,1])\
-                                                +torch.mul(center_dist[:,2],center_dist[:,2])) < 0.03).view(-1) 
+                                                +torch.mul(center_dist[:,2],center_dist[:,2])) < 0.025).view(-1) 
                             
             r_sim = compute_cos_sim(next_grasp[:,3:6], next_gt[:,3:6]).view(-1)
             r_sim_mask = (r_sim < 0.5).view(-1) # cos60 = 0.5 #0.234
