@@ -9,7 +9,7 @@ RGENet is a REgion-based Grasp Network for End-to-end Grasp Detection in Point C
 1. Clone the repository
 ```
 cd ${your_project_path}
-git clone https://github.com/lesleyhaha/REGNet_for_3D_Grasping.git
+git clone https://github.com/zhaobinglei/REGNet_for_3D_Grasping.git
 ```
 
 2. Install the requirements in ```requirements.txt```
