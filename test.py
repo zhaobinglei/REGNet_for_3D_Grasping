@@ -30,8 +30,8 @@ parser.add_argument('--gpus', type=str, default='0,2,3')
 parser.add_argument('--lr-score' , type=float, default=0.001)
 parser.add_argument('--lr-region', type=float, default=0.001)
 
-parser.add_argument('--load-score-path', type=str, default='/data1/cxg6/REGNet_for_3D_Grasping/assets/models/final/score_20.model')
-parser.add_argument('--load-region-path', type=str, default='/data1/cxg6/REGNet_for_3D_Grasping/assets/models/final/region_20.model')
+parser.add_argument('--load-score-path', type=str, default='/data1/cxg6/REGNet_for_3D_Grasping/assets/models/final/score_21.model')
+parser.add_argument('--load-region-path', type=str, default='/data1/cxg6/REGNet_for_3D_Grasping/assets/models/final/region_21.model')
 # parser.add_argument('--load-score-path', type=str, default='/data1/cxg6/REGNet_for_3D_Grasping/assets/models/0.12/score_38.model')
 # parser.add_argument('--load-region-path', type=str, default='/data1/cxg6/REGNet_for_3D_Grasping/assets/models/0.12/region_38.model')
 # #parser.add_argument('--load-score-path', type=str, default='')
@@ -62,7 +62,7 @@ all_points_num = 25600
 obj_class_num = 43
 
 # width, height, depth = 0.060, 0.010, 0.060
-width, height, depth = 0.06, 0.010, 0.06
+width, height, depth = 0.08, 0.010, 0.06
 table_height = 0.75
 grasp_score_threshold = 0.5 # 0.3
 center_num = 4000#64#128
@@ -73,7 +73,7 @@ r_time_group = 0.1
 r_time_group_more = 0.8
 gripper_num = 64
 use_theta = True
-reg_channel = 8 
+reg_channel = 10
         
 gripper_params = [width, height, depth]
 model_params   = [obj_class_num, group_num, gripper_num, grasp_score_threshold, depth, reg_channel]

@@ -36,6 +36,10 @@ width, height, depth: the parameters of the two-finger grippers
 table_height        : the height of the table
 ```
 ---
+## Data preparation
+The dataset is too huge. **And now we are uploading the dataset to Baiducloud Disk. Please wait patiently.** (The dataset used for paper writing has less grasp annotations. The grasps in the new dataset can better cover the objects in the environment. Note that the scenes and rendered point clouds in the old and new dataset are the same.)
+
+---
 ## Training
 The architecture of REGNet is shown in follows.
 <div align=center>
@@ -77,6 +81,21 @@ python vis_grasp.py
 ```
 ---
 ## Results
+The validation logging file is shown in below figures.
+<div align=center>
+<img src=markdown/vgr2.png width=800>
+</div>
+<div align=center>
+<img src=markdown/vgr3.png width=800>
+</div>
+<div align=center>
+<img src=markdown/score2.png width=800>
+</div>
+<div align=center>
+<img src=markdown/score3.png width=800>
+</div>
+After refinement, the performance has improved significantly.
+
 There are some results predicted by REGNet.
 The first situation is in the validation dataset, which has the same distribution as the training dataset (table_height=0.75). Some objects do not have the corresponding grasps, since the gripper's width is smaller than the object's size. The red grasp has the highest predicted score. 
 <div align=center>
@@ -93,3 +112,8 @@ The next two pictures are observed by Kinect in the real world (table_height=0.7
 <div align=center>
 <img src=markdown/4.png width=800>
 </div>
+
+
+---
+## Future Work
+Our future work will optimize the code to make it easier to train. Please continue to pay attention. ~

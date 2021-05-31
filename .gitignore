@@ -6,10 +6,24 @@ __pycache__/
 # C extensions
 *.so
 
+assets
 .vscode
-log
+assets/log
+# assets/log/*0*
+# assets/log/*15*
+# assets/log/*xyz
+# assets/log/*refine
+# assets/log/test
+# assets/log/vsdebug
+# assets/log/final
+
 assets/models/*0*
 assets/models/*15*
+assets/models/*xyz
+assets/models/*refine
+assets/models/test
+assets/models/vsdebug
+assets/models/train_direct
 
 # Distribution / packaging
 .Python

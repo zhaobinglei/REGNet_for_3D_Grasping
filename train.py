@@ -24,24 +24,25 @@ parser.add_argument('--debug', type=bool, default=False)
 parser.add_argument('--epoch', type=int, default=101)
 parser.add_argument('--mode', choices=['train', 'pretrain_score', 'pretrain_region', 'validate', 'validate_score',
                                         'validate_region', 'test', 'test_score', 'test_region'], required=True)
-parser.add_argument('--batch-size', type=int, default=15)#16)#16
+parser.add_argument('--batch-size', type=int, default=12)#16)#16
 parser.add_argument('--num-refine', type=int, default=0, help='number of interative refinement iterations')
 parser.add_argument('--cuda', action='store_true')
 parser.add_argument('--gpu-num', type=int, default=2)
 parser.add_argument('--gpu', type=int, default=0)
 parser.add_argument('--gpus', type=str, default='0,2,3')
-parser.add_argument('--lr-score' , type=float, default=0.0001) #0.001
-parser.add_argument('--lr-region', type=float, default=0.0001)
+parser.add_argument('--lr-score' , type=float, default=0.001) #0.001
+parser.add_argument('--lr-region', type=float, default=0.001)
 
-parser.add_argument('--load-score-path', type=str, default='/data1/cxg6/REGNet_for_3D_Grasping/assets/models/pretrain_for_refine_regnet_bs15/score_17.model')
-parser.add_argument('--load-region-path', type=str, default='/data1/cxg6/REGNet_for_3D_Grasping/assets/models/pretrain_for_refine_regnet_bs15/region_17.model')
-#parser.add_argument('--load-score-path', type=str, default='')
-# parser.add_argument('--load-region-path', type=str, default='')
+#parser.add_argument('--load-score-path', type=str, default='/data1/cxg6/REGNet_for_3D_Grasping/assets/models/region_xyz/score_16.model')
+# parser.add_argument('--load-score-path', type=str, default='/data1/cxg6/REGNet_for_3D_Grasping/assets/models/train_direct/score_7.model')
+# parser.add_argument('--load-region-path', type=str, default='/data1/cxg6/REGNet_for_3D_Grasping/assets/models/train_direct/region_7.model')
+parser.add_argument('--load-score-path', type=str, default='')
+parser.add_argument('--load-region-path', type=str, default='')
 parser.add_argument('--load-score-flag', type=bool, default=True)
 parser.add_argument('--load-region-flag', type=bool, default=True)
 
 parser.add_argument('--use-multi', type=bool, default=False)
-parser.add_argument('--data-path', type=str, default='/data1/cxg6/eval_data', help='data path')
+parser.add_argument('--data-path', type=str, default='/data1/cxg6/dataset/0.08', help='data path')
 
 parser.add_argument('--model-path', type=str, default='/data1/cxg6/REGNet_for_3D_Grasping/assets/models/', help='to saved model path')
 parser.add_argument('--log-path', type=str, default='/data1/cxg6/REGNet_for_3D_Grasping/assets/log/', help='to saved log path')
@@ -70,7 +71,7 @@ all_points_num = 25600
 obj_class_num = 43
 
 # width, height, depth = 0.060, 0.010, 0.060
-width, height, depth = 0.060, 0.010, 0.06#5
+width, height, depth = 0.08, 0.010, 0.06#5
 table_height = 0.75
 grasp_score_threshold = 0.5 # 0.3
 center_num = 64#64#128
@@ -81,7 +82,7 @@ r_time_group = 0.1
 r_time_group_more = 0.8
 gripper_num = 64
 use_theta = True
-reg_channel = 8 
+reg_channel = 10 
         
 gripper_params = [width, height, depth]
 model_params   = [obj_class_num, group_num, gripper_num, grasp_score_threshold, depth, reg_channel]

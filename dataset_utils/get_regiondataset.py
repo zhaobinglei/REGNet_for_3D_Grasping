@@ -67,13 +67,19 @@ def _get_center_grasp(center_pc_index, center_pc, data_paths, depth, use_theta=T
         if 'frame' in data.keys():
             grasp = torch.Tensor(data['frame'])
             grasp_score =  torch.Tensor(data['antipodal_score'])
-            grasp_antipodal_score = None
+            grasp_antipodal_score = grasp_score
+            grasp_center_score    = grasp_score
+            grasp_vertical_score  = grasp_score
+            # grasp_antipodal_score = None
             if center_pc_index.is_cuda:
                 grasp, grasp_score = grasp.cuda(), grasp_score.cuda()
+                grasp_antipodal_score, grasp_center_score, grasp_vertical_score, grasp_label = \
+                    grasp_antipodal_score.cuda(), grasp_center_score.cuda(), grasp_vertical_score.cuda(), grasp_label.cuda()
+                # grasp, grasp_score = grasp.cuda(), grasp_score.cuda()
 
         else:
             grasp                 = torch.Tensor(data['select_frame'])
-            grasp_score           = torch.Tensor(data['select_score']) / 3 if type(data['select_score']) is np.ndarray else data['select_score'] / 3
+            grasp_score           = torch.Tensor(data['select_antipodal_score']) if type(data['select_antipodal_score']) is np.ndarray else data['select_antipodal_score'] 
             grasp_antipodal_score = torch.Tensor(data['select_antipodal_score']) if type(data['select_antipodal_score']) is np.ndarray else data['select_antipodal_score']
             grasp_center_score    = torch.Tensor(data['select_center_score']) if type(data['select_center_score']) is np.ndarray else data['select_center_score']
             grasp_vertical_score  = torch.Tensor(data['select_vertical_score']) if type(data['select_vertical_score']) is np.ndarray else data['select_vertical_score']
@@ -88,7 +94,7 @@ def _get_center_grasp(center_pc_index, center_pc, data_paths, depth, use_theta=T
         #grasp_select_inedx = (grasp_score > 0.4)
         #grasp_score = grasp_score[grasp_select_inedx]
         #grasp = grasp[grasp_select_inedx]
-
+        print(grasp_score.mean())
         grasp_center = grasp[:,:3,3]
         grasp_x, grasp_y, grasp_z = grasp[:,:3,0], grasp[:,:3,1], grasp[:,:3,2]
         grasp_center = (grasp_center + grasp_x * depth).float()
