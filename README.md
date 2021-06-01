@@ -37,7 +37,14 @@ table_height        : the height of the table
 ```
 ---
 ## Data preparation
-The dataset is too huge. **And now we are uploading the dataset to Baiducloud Disk. Please wait patiently.** (The dataset used for paper writing has less grasp annotations. The grasps in the new dataset can better cover the objects in the environment. Note that the scenes and rendered point clouds in the old and new dataset are the same.)
+<!--The dataset is too huge. **And now we are uploading the dataset to Baiducloud Disk. Please wait patiently.** (The dataset used for paper writing has less grasp annotations. The grasps in the new dataset can better cover the objects in the environment. Note that the scenes and rendered point clouds in the old and new dataset are the same.)-->
+The link of the new dataset is https://pan.baidu.com/s/1alwaKQZt0IGE11FFSClxOg . And the extraction code is **x79a**.
+(Maybe you can only use a Chinese proxy to access the link.)
+The dataset used for paper writing has less grasp annotations. The grasps in the new dataset can better cover the objects in the environment. Note that the scenes and rendered point clouds in the old and new dataset are the same.
+
+The new model in /assets/models/final is trained using the new dataset.
+
+(The dataset is too huge. So please be patient when downloading.)
 
 ---
 ## Training
